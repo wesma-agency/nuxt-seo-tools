@@ -56,7 +56,7 @@ export const usersStore = defineStore("users", {
 				withCredentials: true,
 			});
 
-			const response = await instance.post(`http:/api.wesma.ru/api/auth/`, {
+			const response = await instance.post(`http://api.wesma.local/api/auth/login`, {
 				email: "test3@mail.ru",
 				password: "12345678",
 			});
