@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import axios from "axios"
+import axios from "axios";
 
 export const usersStore = defineStore("users", {
 	state: () => {
@@ -53,10 +53,10 @@ export const usersStore = defineStore("users", {
 
 		async login() {
 			const instance = axios.create({
-				withCredentials: true
+				withCredentials: true,
 			});
 
-			const response = await instance.post(`http:/api.wesma.ru/api/auth/login`, {
+			const response = await instance.post(`http:/api.wesma.ru/api/auth/`, {
 				email: "test3@mail.ru",
 				password: "12345678",
 			});
@@ -64,6 +64,6 @@ export const usersStore = defineStore("users", {
 			console.log(response);
 
 			return response;
-		}
+		},
 	},
 });
