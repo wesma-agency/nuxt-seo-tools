@@ -1,0 +1,5 @@
+PassengerNodejs /home/a/altovovu/seo-tools.wesma.ru/.local/bin/node
+#PassengerNodejs /usr/local/bin/node
+PassengerAppRoot /home/a/altovovu/seo-tools.wesma.ru/nuxt
+PassengerAppType node
+PassengerStartupFile entry.js
