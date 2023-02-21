@@ -1,9 +1,11 @@
 import { defineStore } from "pinia";
-import axios from "axios";
+import AuthService from "@/service/authService";
 
 export const usersStore = defineStore("users", {
 	state: () => {
 		return {
+			userProfile: null,
+			isAuth: false,
 			users: [
 				{
 					id: 1,
@@ -51,19 +53,37 @@ export const usersStore = defineStore("users", {
 			});
 		},
 
-		async login() {
-			const instance = axios.create({
-				withCredentials: true,
-			});
+		async login(login, password) {
+			try {
+				const response = await AuthService.login(login, password);
+				localStorage.setItem("tokenAccess", response.data.access_token);
+				this.userProfile = response.data.user;
+				this.isAuth = false;
 
-			const response = await instance.post(`http://api.wesma.ru/api/auth/`, {
-				email: "test3@mail.ru",
-				password: "12345678",
-			});
+				return response;
+			} catch (e) {
+				console.log(e);
+			}
+		},
 
-			console.log(response);
+		async register(login, password, password_confirmation, name) {
+			const response = await AuthService.register(login, password, password_confirmation, name);
+			localStorage.setItem("tokenAccess", response.data.access_token);
+			this.userProfile = response.data.user;
+			this.isAuth = false;
 
 			return response;
+		},
+
+		async userProfile() {
+			try {
+				const response = await AuthService.userProfile();
+				this.userProfile = response.data.user;
+				this.isAuth = false;
+				return response;
+			} catch (e) {
+				console.log(e);
+			}
 		},
 	},
 });
