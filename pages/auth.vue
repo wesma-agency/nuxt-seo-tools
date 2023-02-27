@@ -8,12 +8,11 @@
 	</section>
 </template>
 
-<script>
+<script setup>
 import BlockAuth from "@/components/blockAuth";
+import { usersStore } from "@/stores/userStore";
 
 definePageMeta({
 	layout: "auth",
 });
-
-export default {};
 </script>

@@ -4,10 +4,6 @@ export default defineNuxtConfig({
 
 	modules: [["@pinia/nuxt", { autoImports: ["defineStore"] }]],
 
-	// alias: {
-	// 	pinia: process.env.NODE_ENV === "production" ? "/node_modules/pinia/dist/pinia.mjs" : "/node_modules/@pinia/nuxt/node_modules/pinia/dist/pinia.mjs",
-	// },
-
 	postcss: {
 		plugins: {
 			tailwindcss: {},
@@ -15,5 +11,9 @@ export default defineNuxtConfig({
 		},
 	},
 
-
+	runtimeConfig: {
+		public: {
+			API_BASE_URL: process.env.API_BASE_URL,
+		},
+	},
 });
