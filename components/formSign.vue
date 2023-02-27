@@ -23,29 +23,19 @@
 	</form>
 </template>
 
-<script>
+<script setup>
 import { LockClosedIcon } from "@heroicons/vue/20/solid/index";
-import { mapActions } from "pinia";
 import { usersStore } from "@/stores/userStore";
 
-export default {
-	data() {
-		return {
-			email: null,
-			password: null,
-		};
-	},
+const email = ref();
+const password = ref();
 
-	methods: {
-		...mapActions(usersStore, ["login"]),
+const store = usersStore();
+const router = useRouter();
 
-		onLogin() {
-			this.login(this.email, this.password).then((data) => console.log(data));
-		},
-	},
-
-	components: {
-		LockClosedIcon,
-	},
-};
+function onLogin() {
+	store.login(email.value, password.value).then(() => {
+		router.push({ path: "/parsers" });
+	});
+}
 </script>

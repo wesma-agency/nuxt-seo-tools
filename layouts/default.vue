@@ -76,17 +76,15 @@
 								</a>
 							</NuxtLink>
 
-							<NuxtLink to="/auth" custom v-slot="{ href, navigate, isActive }">
-								<a :href="href" @click="navigate" :class="[isActive ? currentMenuClass : allMenuClass]" class="w-full px-2 inline-flex space-x-2 items-center border-b border-slate-700 py-3 transition ease-linear duration-150">
-									<div>
-										<svg class="w-6 h-6" fill="none" viewBox="0 0 20 20" stroke-width="1" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"></path></svg>
-									</div>
-									<div class="flex flex-col">
-										<span class="text-lg font-bold leading-5 text-inherit">Выйти</span>
-										<span class="text-sm hidden md:block text-inherit">Выйти из системы</span>
-									</div>
-								</a>
-							</NuxtLink>
+							<button v-on:click="logout" :class="allMenuClass" class="text-left w-full px-2 inline-flex space-x-2 items-center border-b border-slate-700 py-3 transition ease-linear duration-150">
+								<div>
+									<svg class="w-6 h-6" fill="none" viewBox="0 0 20 20" stroke-width="1" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"></path></svg>
+								</div>
+								<div class="flex flex-col">
+									<span class="text-lg font-bold leading-5 text-inherit">Выйти</span>
+									<span class="text-sm hidden md:block text-inherit">Выйти из системы</span>
+								</div>
+							</button>
 						</div>
 					</div>
 				</div>
@@ -99,16 +97,22 @@
 	</div>
 </template>
 
-<script>
-export default {
-	computed: {
-		currentMenuClass() {
-			return "text-white-500 bg-green-600 hover:bg-green-600";
-		},
+<script setup>
+import { usersStore } from "@/stores/userStore";
 
-		allMenuClass() {
-			return "text-slate-500 hover:bg-green-600/5";
-		},
-	},
-};
+const store = usersStore();
+const router = useRouter();
+
+let currentMenuClass = computed(() => {
+	return "text-white-500 bg-green-600 hover:bg-green-600";
+});
+
+let allMenuClass = computed(() => {
+	return "text-slate-500 hover:bg-green-600/5";
+});
+
+async function logout() {
+	await store.logout();
+	router.push({ path: "/auth" });
+}
 </script>

@@ -56,22 +56,13 @@
 	</div>
 </template>
 
-<script>
+<script setup>
 import FormRegister from "@/components/formRegister";
 import { usersStore } from "@/stores/userStore";
 
-export default {
-	setup(props, context) {
-		const store = usersStore();
+const store = usersStore();
 
-		function onSubmitRegister(prop) {
-			store.addUser(prop);
-		}
-
-		return {
-			store,
-			onSubmitRegister,
-		};
-	},
-};
+function onSubmitRegister(prop) {
+	store.addUser(prop);
+}
 </script>

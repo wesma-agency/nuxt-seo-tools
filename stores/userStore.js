@@ -6,6 +6,8 @@ export const usersStore = defineStore("users", {
 		return {
 			userProfile: null,
 			isAuth: false,
+			expiresIn: null,
+			intervalRefresh: null,
 			users: [
 				{
 					id: 1,
@@ -56,34 +58,82 @@ export const usersStore = defineStore("users", {
 		async login(login, password) {
 			try {
 				const response = await AuthService.login(login, password);
-				localStorage.setItem("tokenAccess", response.data.access_token);
-				this.userProfile = response.data.user;
-				this.isAuth = false;
-
+				const cookieToken = useCookie("tokenAccess", {
+					maxAge: response.expires_in,
+				});
+				cookieToken.value = response.access_token;
+				this.userProfile = response.user;
+				this.isAuth = true;
+				this.expiresIn = response.expires_in;
+				this.handlerIntervalRefresh();
 				return response;
 			} catch (e) {
 				console.log(e);
 			}
 		},
 
-		async register(login, password, password_confirmation, name) {
-			const response = await AuthService.register(login, password, password_confirmation, name);
-			localStorage.setItem("tokenAccess", response.data.access_token);
-			this.userProfile = response.data.user;
-			this.isAuth = false;
+		async register(login, password, password_confirmation, name, role) {
+			try {
+				const response = await AuthService.register(login, password, password_confirmation, name, role);
+				const cookieToken = useCookie("tokenAccess", {
+					maxAge: response.expires_in,
+				});
+				cookieToken.value = response.access_token;
+				this.userProfile = response.user;
+				this.isAuth = true;
+				this.expiresIn = response.expires_in;
+				this.handlerIntervalRefresh();
+				console.log(response);
+				return response;
+			} catch (e) {
+				console.log(e);
+			}
+		},
 
-			return response;
+		async logout() {
+			try {
+				const response = await AuthService.logout();
+				const cookieToken = useCookie("tokenAccess");
+				cookieToken.value = null;
+				this.userProfile = null;
+				this.isAuth = false;
+				this.expiresIn = null;
+				clearInterval(this.intervalRefresh);
+				return response;
+			} catch (e) {
+				console.log(e);
+			}
 		},
 
 		async userProfile() {
 			try {
 				const response = await AuthService.userProfile();
-				this.userProfile = response.data.user;
-				this.isAuth = false;
+				this.userProfile = response;
+				this.isAuth = true;
 				return response;
 			} catch (e) {
 				console.log(e);
 			}
+		},
+
+		async refresh() {
+			const cookieToken = useCookie("tokenAccess");
+			if (cookieToken.value) {
+				const response = await AuthService.refresh();
+				const cookieToken = useCookie("tokenAccess", {
+					maxAge: response.expires_in,
+				});
+				cookieToken.value = response.access_token;
+				this.userProfile = response.user;
+				this.isAuth = true;
+				this.expiresIn = response.expires_in;
+			} else {
+				return false;
+			}
+		},
+
+		handlerIntervalRefresh() {
+			this.intervalRefresh = setInterval(this.refresh, (this.expiresIn / 2) * 1000);
 		},
 	},
 });
