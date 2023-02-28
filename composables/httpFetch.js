@@ -1,6 +1,5 @@
 export default function () {
 	const $api = $fetch.create({
-		withCredentials: true,
 		baseURL: useRuntimeConfig().API_BASE_URL,
 		onRequest({ request, options }) {
 			if (request != "auth/register") {
