@@ -1,8 +1,21 @@
-export default defineNuxtRouteMiddleware((to, from) => {
-	if (useCookie("tokenAccess").value == undefined && to.name != "auth") {
+import { usersStore } from "@/stores/userStore";
+
+export default defineNuxtRouteMiddleware(async (to, from) => {
+	const store = usersStore();
+	if (useCookie("tokenAccess").value != undefined) {
+		await store.getUserProfile();
+	}
+	if (!store.isAuth && to.name != "auth") {
 		return navigateTo("/auth");
 	}
-	if (useCookie("tokenAccess").value != undefined && to.name == "auth") {
+	if (store.isAuth && to.name == "auth") {
 		return navigateTo("/parsers");
 	}
+
+	// if (useCookie("tokenAccess").value == undefined && to.name != "auth") {
+	// 	return navigateTo("/auth");
+	// }
+	// if (useCookie("tokenAccess").value != undefined && to.name == "auth") {
+	// 	return navigateTo("/parsers");
+	// }
 });
