@@ -9,12 +9,12 @@
 
 			<div>
 				<label for="name" class="sr-only">Логин</label>
-				<input v-model="name" id="name" name="email" type="text" required="" class="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-green-600 focus:outline-none focus:ring-green-600 sm:text-sm" placeholder="Имя" />
+				<input v-model="name" id="name" name="email" type="text" required="" class="relative block w-full appearance-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-green-600 focus:outline-none focus:ring-green-600 sm:text-sm" placeholder="Имя" />
 			</div>
 
 			<div>
 				<label for="password" class="sr-only">Пароль</label>
-				<input v-model="password" id="password" name="password" type="password" autocomplete="current-password" required="" class="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-green-600 focus:outline-none focus:ring-green-600 sm:text-sm" placeholder="Пароль" />
+				<input v-model="password" id="password" name="password" type="password" autocomplete="current-password" required="" class="relative block w-full appearance-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-green-600 focus:outline-none focus:ring-green-600 sm:text-sm" placeholder="Пароль" />
 			</div>
 
 			<div>
@@ -98,7 +98,7 @@ const selected = ref(roles[0]);
 
 function onSubmit() {
 	store.register(email.value, password.value, passwordConfirmation.value, name.value, selected.value.name).then(() => {
-		router.push({ path: "/parsers" });
+		// router.push({ path: "/parsers" });
 	});
 }
 </script>

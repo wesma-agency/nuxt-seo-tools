@@ -83,7 +83,6 @@ export const usersStore = defineStore("users", {
 				this.isAuth = true;
 				this.expiresIn = response.expires_in;
 				this.handlerIntervalRefresh();
-				console.log(response);
 				return response;
 			} catch (e) {
 				console.log(e);
@@ -105,7 +104,7 @@ export const usersStore = defineStore("users", {
 			}
 		},
 
-		async userProfile() {
+		async getUserProfile() {
 			try {
 				const response = await AuthService.userProfile();
 				this.userProfile = response;
@@ -117,18 +116,26 @@ export const usersStore = defineStore("users", {
 		},
 
 		async refresh() {
-			const cookieToken = useCookie("tokenAccess");
-			if (cookieToken.value) {
-				const response = await AuthService.refresh();
-				const cookieToken = useCookie("tokenAccess", {
-					maxAge: response.expires_in,
-				});
-				cookieToken.value = response.access_token;
-				this.userProfile = response.user;
-				this.isAuth = true;
-				this.expiresIn = response.expires_in;
-			} else {
-				return false;
+			try {
+				const cookieToken = useCookie("tokenAccess");
+				if (cookieToken.value) {
+					const response = await AuthService.refresh();
+					const cookieToken = useCookie("tokenAccess", {
+						maxAge: response.expires_in,
+					});
+					cookieToken.value = response.access_token;
+					this.userProfile = response.user;
+					this.isAuth = true;
+					this.expiresIn = response.expires_in;
+				} else {
+					return false;
+				}
+			} catch (e) {
+				const cookieToken = useCookie("tokenAccess");
+				if (cookieToken.value != undefined) {
+					cookieToken.value = null;
+				}
+				console.log(e);
 			}
 		},
 
