@@ -94,9 +94,9 @@ export const usersStore = defineStore("users", {
 				const response = await AuthService.logout();
 				const cookieToken = useCookie("tokenAccess");
 				cookieToken.value = null;
-				this.userProfile = null;
-				this.isAuth = false;
-				this.expiresIn = null;
+				// this.userProfile = null;
+				// this.isAuth = false;
+				// this.expiresIn = null;
 				clearInterval(this.intervalRefresh);
 				return response;
 			} catch (e) {
