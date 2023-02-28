@@ -1,20 +1,20 @@
-// import { usersStore } from "@/stores/userStore";
+import { usersStore } from "@/stores/userStore";
 
 export default defineNuxtPlugin((nuxtApp) => {
-	nuxtApp.hook("app:rendered", async () => {});
+	nuxtApp.hook("app:beforeMount", async () => {
+		const store = usersStore();
+		const cookieToken = useCookie("tokenAccess");
+		if (cookieToken.value) {
+			if (store.intervalRefresh === null) {
+				await store.refresh();
+				store.handlerIntervalRefresh();
+			}
+		}
+	});
 });
 
 // export default defineNuxtPlugin((nuxtApp) => {
-// 	nuxtApp.hook("app:beforeMount", async () => {
-// 		const store = usersStore();
-// 		const cookieToken = useCookie("tokenAccess");
-// 		if (cookieToken.value) {
-// 			if (store.intervalRefresh === null) {
-// 				await store.refresh();
-// 				store.handlerIntervalRefresh();
-// 			}
-// 		}
-// 	});
+// 	nuxtApp.hook("app:rendered", async () => {});
 // });
 
 // export default defineNuxtPlugin((nuxtApp) => {
