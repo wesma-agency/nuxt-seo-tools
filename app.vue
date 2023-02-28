@@ -8,7 +8,7 @@
 
 <script setup>
 if (useCookie("tokenAccess").value != undefined) {
-	await $fetch("http://api.wesma.local/api/auth/refresh", {
+	await $fetch("http://api.wesma.ru/api/auth/refresh", {
 		method: "POST",
 		headers: {
 			authorization: `Bearer ${useCookie("tokenAccess").value}`,
