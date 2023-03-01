@@ -1,5 +1,5 @@
 <template>
-	<div class="wrapper min-h-screen flex flex-col">
+	<div v-if="store.isAuth" class="wrapper min-h-screen flex flex-col">
 		<!-- <header class="py-4 border-b border-gray-300">
 			<div class="container m-auto">
 				<div class="flex justify-between">
@@ -31,7 +31,7 @@
 									<img class="w-8 h-8" src="@/assets/img/icon-w.svg" alt="" />
 								</span>
 								<span class="text-sm text-slate-500 md:text-base font-bold">
-									{{ userProfile.name }}
+									{{ store.userProfile.name }}
 								</span>
 							</div>
 						</div>

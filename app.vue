@@ -13,6 +13,7 @@ const store = usersStore();
 onMounted(async () => {
 	if (useCookie("tokenAccess").value != undefined) {
 		await store.refresh();
+		store.handlerIntervalRefresh();
 	}
 });
 </script>

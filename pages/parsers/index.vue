@@ -12,7 +12,7 @@
 									<Vue3Lottie ref="icon1" @onComplete="stopAnim(icon1)" :loop="1" :autoPlay="false" :animationData="iconPars1" :height="170" :width="170" />
 								</client-only>
 								<p class="text-xl font-medium text-slate-700 mt-3">Анализатор топа</p>
-								<p class="mt-2 text-sm text-slate-500">Team BrainEdge education is a bunch of highly focused, energetic set of people.</p>
+								<p class="mt-2 text-sm text-slate-500">Проверка ТОП выдачи по релевантности ключевых слов методами post и get (аналог разбивки запросов по страницам).</p>
 							</a>
 						</NuxtLink>
 
@@ -22,7 +22,7 @@
 									<Vue3Lottie ref="icon2" @onComplete="stopAnim(icon2)" :loop="1" :animationData="iconPars2" :autoPlay="false" :height="170" :width="170" />
 								</client-only>
 								<p class="text-xl font-medium text-slate-700 mt-3">Проверка страниц на фильтр</p>
-								<p class="mt-2 text-sm text-slate-500">Know where you stand and what next to do to succeed .</p>
+								<p class="mt-2 text-sm text-slate-500">Анализ страниц на наличие фильтров ПС (переоптимизация и переспам).</p>
 							</a>
 						</NuxtLink>
 
@@ -32,7 +32,7 @@
 									<Vue3Lottie ref="icon3" @onComplete="stopAnim(icon3)" :loop="1" :animationData="iconPars3" :autoPlay="false" :height="170" :width="170" />
 								</client-only>
 								<p class="text-xl font-medium text-slate-700 mt-3">Съем позиций</p>
-								<p class="mt-2 text-sm text-slate-500">Professional Advice for higher education abroad and select the top institutions worldwide.</p>
+								<p class="mt-2 text-sm text-slate-500">Отслеживание позиций по ключевым словам указанного домена.</p>
 							</a>
 						</NuxtLink>
 
@@ -42,7 +42,7 @@
 									<Vue3Lottie ref="icon4" @onComplete="stopAnim(icon4)" :loop="1" :animationData="iconPars4" :autoPlay="false" :height="170" :width="170" />
 								</client-only>
 								<p class="text-xl font-medium text-slate-700 mt-3">Проверка текста копирайтера</p>
-								<p class="mt-2 text-sm text-slate-500">Yet another year ! Yet another jewel in our crown!</p>
+								<p class="mt-2 text-sm text-slate-500">Проверка текста на соответствие техническому заданию по количеству символов и употребляемых ключевых фраз</p>
 							</a>
 						</NuxtLink>
 
@@ -52,7 +52,7 @@
 									<Vue3Lottie ref="icon5" @onComplete="stopAnim(icon5)" :loop="1" :animationData="iconPars5" :autoPlay="false" :height="170" :width="170" />
 								</client-only>
 								<p class="text-xl font-medium text-slate-700 mt-3">Анализатор показателя ИКС</p>
-								<p class="mt-2 text-sm text-slate-500">Get Topic-Wise Tests, Section- Wise and mock tests for your preparation.</p>
+								<p class="mt-2 text-sm text-slate-500">Массовая проверка показателей индекса качества сайта для доменов.</p>
 							</a>
 						</NuxtLink>
 
@@ -62,7 +62,7 @@
 									<Vue3Lottie ref="icon6" @onComplete="stopAnim(icon6)" :loop="1" :animationData="iconPars6" :autoPlay="false" :height="170" :width="170" />
 								</client-only>
 								<p class="text-xl font-medium text-slate-700 mt-3">Парсинг слов из тегов страницы</p>
-								<p class="mt-2 text-sm text-slate-500">Visa process by helping you create the necessary documentation</p>
+								<p class="mt-2 text-sm text-slate-500">Анализ употребления слов в контенте страниц (в тегах, ссылках, заголовках).</p>
 							</a>
 						</NuxtLink>
 
@@ -72,7 +72,7 @@
 									<Vue3Lottie ref="icon7" @onComplete="stopAnim(icon7)" :loop="1" :animationData="iconPars7" :autoPlay="false" :height="170" :width="170" />
 								</client-only>
 								<p class="text-xl font-medium text-slate-700 mt-3">ТЗ для копирайтера</p>
-								<p class="mt-2 text-sm text-slate-500">Visa process by helping you create the necessary documentation</p>
+								<p class="mt-2 text-sm text-slate-500">Сервис по определению ключевых слов из кластеров среди страниц конкурентов.</p>
 							</a>
 						</NuxtLink>
 					</div>
@@ -83,6 +83,8 @@
 </template>
 
 <script setup>
+import { usersStore } from "@/stores/userStore";
+
 import iconPars1 from "@/assets/img/pars-icon-1.json";
 import iconPars2 from "@/assets/img/pars-icon-2.json";
 import iconPars3 from "@/assets/img/pars-icon-3.json";
@@ -91,6 +93,8 @@ import iconPars5 from "@/assets/img/pars-icon-5.json";
 import iconPars6 from "@/assets/img/pars-icon-6.json";
 import iconPars7 from "@/assets/img/pars-icon-7.json";
 import "vue3-lottie/dist/style.css";
+
+const store = usersStore();
 
 let icon1 = ref("icon1");
 let icon2 = ref("icon2");

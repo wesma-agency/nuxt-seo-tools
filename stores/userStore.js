@@ -8,39 +8,7 @@ export const usersStore = defineStore("users", {
 			isAuth: false,
 			expiresIn: null,
 			intervalRefresh: null,
-			users: [
-				{
-					id: 1,
-					login: "test",
-					pass: "test",
-					role: "seo",
-					status: true,
-				},
-
-				{
-					id: 2,
-					login: "test 2",
-					pass: "test",
-					role: "seo",
-					status: true,
-				},
-
-				{
-					id: 3,
-					login: "test 3",
-					pass: "test",
-					role: "seo",
-					status: true,
-				},
-
-				{
-					id: 4,
-					login: "test 4",
-					pass: "test",
-					role: "seo",
-					status: false,
-				},
-			],
+			users: null,
 		};
 	},
 
@@ -94,9 +62,9 @@ export const usersStore = defineStore("users", {
 				const response = await AuthService.logout();
 				const cookieToken = useCookie("tokenAccess");
 				cookieToken.value = null;
-				// this.userProfile = null;
-				// this.isAuth = false;
-				// this.expiresIn = null;
+				this.userProfile = null;
+				this.isAuth = false;
+				this.expiresIn = null;
 				clearInterval(this.intervalRefresh);
 				return response;
 			} catch (e) {
@@ -135,6 +103,24 @@ export const usersStore = defineStore("users", {
 				if (cookieToken.value != undefined) {
 					cookieToken.value = null;
 				}
+				console.log(e);
+			}
+		},
+
+		async getUsers() {
+			try {
+				const response = await AuthService.getUsers(this.userProfile.name);
+				this.users = response.data;
+				return response;
+			} catch (e) {
+				console.log(e);
+			}
+		},
+
+		async editUser(obj) {
+			try {
+				const response = await AuthService.editUser(obj);
+			} catch (e) {
 				console.log(e);
 			}
 		},

@@ -41,4 +41,19 @@ export default class AuthService {
 			method: "POST",
 		});
 	}
+
+	static async getUsers(name) {
+		return $api()("action/get_users", {
+			method: "POST",
+		});
+	}
+
+	static async editUser(obj) {
+		return $api()("action/edit_user", {
+			method: "POST",
+			body: {
+				...obj,
+			},
+		});
+	}
 }
