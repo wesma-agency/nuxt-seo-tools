@@ -15,28 +15,16 @@
 											<thead class="bg-gray-200 border-b">
 												<tr>
 													<th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">id</th>
-													<th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Логин</th>
+													<th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Email</th>
+													<th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Имя</th>
 													<th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Пароль</th>
 													<th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Роль</th>
-													<th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Редактировать</th>
-													<th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Удалить</th>
 													<th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Активность</th>
+													<th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Редактировать</th>
 												</tr>
 											</thead>
 											<tbody>
-												<tr v-for="user in store.users" :key="user.id" class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-													<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ user.id }}</td>
-													<td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ user.login }}</td>
-													<td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ user.pass }}</td>
-													<td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ user.role }}</td>
-													<td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">edits</td>
-													<td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">delete</td>
-													<td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-														<div class="flex items-center justify-center">
-															<input :checked="user.status" type="checkbox" class="appearance-none w-9 focus:outline-none checked:bg-blue-300 h-5 bg-gray-300 rounded-full before:mt-0.5 before:inline-block before:rounded-full before:bg-blue-500 before:h-4 before:w-4 checked:before:translate-x-full shadow-inner transition-all duration-300 before:ml-0.5" />
-														</div>
-													</td>
-												</tr>
+												<UserItem v-for="user in store.users" :userdata="user" :key="user.id"></UserItem>
 											</tbody>
 										</table>
 									</div>
@@ -57,6 +45,7 @@
 </template>
 
 <script setup>
+import UserItem from "@/components/userItem.vue";
 import FormRegister from "@/components/formRegister";
 import { usersStore } from "@/stores/userStore";
 
@@ -65,4 +54,6 @@ const store = usersStore();
 function onSubmitRegister(prop) {
 	store.addUser(prop);
 }
+
+await store.getUsers();
 </script>

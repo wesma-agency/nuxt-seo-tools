@@ -98,7 +98,7 @@ const selected = ref(roles[0]);
 
 function onSubmit() {
 	store.register(email.value, password.value, passwordConfirmation.value, name.value, selected.value.name).then(() => {
-		// router.push({ path: "/parsers" });
+		router.push({ path: "/parsers" });
 	});
 }
 </script>
