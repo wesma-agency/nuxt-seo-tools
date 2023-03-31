@@ -8,14 +8,16 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 	if (!store.isAuth && to.name != "auth") {
 		return navigateTo("/auth");
 	}
-	if (store.isAuth && to.name == "auth") {
-		return navigateTo("/parsers");
-	}
 
-	// if (useCookie("tokenAccess").value == undefined && to.name != "auth") {
-	// 	return navigateTo("/auth");
-	// }
-	// if (useCookie("tokenAccess").value != undefined && to.name == "auth") {
-	// 	return navigateTo("/parsers");
-	// }
+	if (store.isAuth) {
+		if (!store.userProfile.active) {
+			if (to.name != "waitingActivation") {
+				return navigateTo("/waitingActivation");
+			}
+		} else {
+			if (to.name == "auth" || to.name == "waitingActivation") {
+				return navigateTo("/parsers");
+			}
+		}
+	}
 });

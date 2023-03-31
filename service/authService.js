@@ -42,9 +42,12 @@ export default class AuthService {
 		});
 	}
 
-	static async getUsers(name) {
+	static async getUsers(id) {
 		return $api()("action/get_users", {
 			method: "POST",
+			body: {
+				id: id && id.length > 0 ? id.join(",") : null,
+			},
 		});
 	}
 
@@ -53,6 +56,28 @@ export default class AuthService {
 			method: "POST",
 			body: {
 				...obj,
+			},
+		});
+	}
+
+	static async addUser(login, password, password_confirmation, name, role) {
+		return $api()("action/add_user", {
+			method: "POST",
+			body: {
+				email: login,
+				password: password,
+				password_confirmation: password_confirmation,
+				name: name,
+				role: role,
+			},
+		});
+	}
+
+	static async deleteUser(id) {
+		return $api()("action/delete_user", {
+			method: "DELETE",
+			body: {
+				id: id
 			},
 		});
 	}

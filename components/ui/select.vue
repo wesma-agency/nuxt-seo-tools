@@ -44,5 +44,5 @@ const props = defineProps({
 
 const emit = defineEmits(["update:modelValue"]);
 
-const selected = reactive(props.selectedDefault ? props.selectdata.find((item) => item.name == props.selectedDefault) : props.selectdata[0]);
+const selected = reactive(props.selectedDefault && props.selectdata.find((item) => item.name.toLowerCase() == props.selectedDefault.toLowerCase()) != undefined ? props.selectdata.find((item) => item.name.toLowerCase() == props.selectedDefault.toLowerCase()) : props.selectdata[0]);
 </script>

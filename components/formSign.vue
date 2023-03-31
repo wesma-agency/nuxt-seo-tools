@@ -3,11 +3,9 @@
 		<input type="hidden" name="remember" value="true" />
 		<div class="-space-y-px rounded-md shadow-sm">
 			<div>
-				<label for="email-address" class="sr-only">Логин</label>
 				<input v-model="email" id="email-address" name="email" type="text" class="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-green-600 focus:outline-none focus:ring-green-600 sm:text-sm" placeholder="Логин" />
 			</div>
 			<div>
-				<label for="password" class="sr-only">Пароль</label>
 				<input v-model="password" id="password" name="password" type="password" autocomplete="current-password" class="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-green-600 focus:outline-none focus:ring-green-600 sm:text-sm" placeholder="Пароль" />
 			</div>
 		</div>

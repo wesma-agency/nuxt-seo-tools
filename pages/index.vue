@@ -4,13 +4,13 @@
 			<div class="container m-auto">
 				<h2 class="mb-6 text-3xl font-bold tracking-tight text-gray-900">Управление пользователями</h2>
 
-				<div class="flex gap-8">
+				<div class="flex gap-8 flex-col 2xl:flex-row">
 					<div class="p-8 basis-2/4 rounded-3xl bg-white shadow-[0px_0px_20px_#d9dcec]">
 						<h3 class="mb-6 text-2xl font-bold tracking-tight text-gray-900">Список пользователей</h3>
 						<div class="flex flex-col">
-							<div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
+							<div class="sm:mx-0.5 lg:mx-0.5">
 								<div class="inline-block min-w-full">
-									<div class="overflow-hidden">
+									<div>
 										<table class="min-w-full">
 											<thead class="bg-gray-200 border-b">
 												<tr>
@@ -36,7 +36,7 @@
 					<div class="p-8 basis-2/4 rounded-3xl bg-white shadow-[0px_0px_20px_#d9dcec]">
 						<h3 class="mb-6 text-2xl font-bold tracking-tight text-gray-900">Добавить нового пользователя</h3>
 
-						<FormRegister v-on:on-submit-register="onSubmitRegister"> Добавить пользователя </FormRegister>
+						<FormRegister v-on:on-submit="onSubmit"> Добавить пользователя </FormRegister>
 					</div>
 				</div>
 			</div>
@@ -51,9 +51,11 @@ import { usersStore } from "@/stores/userStore";
 
 const store = usersStore();
 
-function onSubmitRegister(prop) {
-	store.addUser(prop);
+function onSubmit(props) {
+	store.addUser(props.email, props.password, props.passwordConfirmation, props.name, props.selected);
 }
 
-await store.getUsers();
+if (store.users === null) {
+	await store.getUsers();
+}
 </script>

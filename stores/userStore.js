@@ -9,20 +9,24 @@ export const usersStore = defineStore("users", {
 			expiresIn: null,
 			intervalRefresh: null,
 			users: null,
+			roles: [
+				{
+					id: 1,
+					name: "SEO",
+				},
+				{
+					id: 2,
+					name: "DEVELOPER",
+				},
+				{
+					id: 3,
+					name: "MANAGER",
+				},
+			],
 		};
 	},
 
 	actions: {
-		addUser(props) {
-			this.users.push({
-				id: this.users.length + 1,
-				login: props.login,
-				pass: props.pass,
-				role: props.role,
-				status: false,
-			});
-		},
-
 		async login(login, password) {
 			try {
 				const response = await AuthService.login(login, password);
@@ -51,6 +55,17 @@ export const usersStore = defineStore("users", {
 				this.isAuth = true;
 				this.expiresIn = response.expires_in;
 				this.handlerIntervalRefresh();
+				return response;
+			} catch (e) {
+				console.log(e);
+			}
+		},
+
+		async addUser(login, password, password_confirmation, name, role) {
+			console.log(this.users);
+			try {
+				const response = await AuthService.addUser(login, password, password_confirmation, name, role);
+				this.users[response.data.id] = response.data;
 				return response;
 			} catch (e) {
 				console.log(e);
@@ -107,11 +122,18 @@ export const usersStore = defineStore("users", {
 			}
 		},
 
-		async getUsers() {
+		async getUsers(id) {
 			try {
-				const response = await AuthService.getUsers(this.userProfile.name);
-				this.users = response.data;
-				return response;
+				const response = await AuthService.getUsers(id);
+				if (id && id.length > 0) {
+					Object.values(response.data).forEach((element) => {
+						this.users[element.id] = element;
+					});
+					return response;
+				} else {
+					this.users = response.data;
+					return response;
+				}
 			} catch (e) {
 				console.log(e);
 			}
@@ -120,13 +142,24 @@ export const usersStore = defineStore("users", {
 		async editUser(obj) {
 			try {
 				const response = await AuthService.editUser(obj);
+				this.getUsers([obj.id]);
 			} catch (e) {
-				console.log(e);
+				return e;
 			}
 		},
 
 		handlerIntervalRefresh() {
 			this.intervalRefresh = setInterval(this.refresh, (this.expiresIn / 2) * 1000);
 		},
+
+		async deleteUser(id) {
+			try {
+				const response = await AuthService.deleteUser(id);
+				delete this.users[id];
+				return response;
+			} catch (e) {
+				console.log(e);
+			}
+		}
 	},
 });
