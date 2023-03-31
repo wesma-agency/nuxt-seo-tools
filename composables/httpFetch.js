@@ -7,6 +7,14 @@ export default function () {
 				options.headers.authorization = `Bearer ${useCookie("tokenAccess").value}`;
 			}
 		},
+
+		onResponse({ request, response, options }) {
+			if (response.status != 200) {
+				throw response._data.error;
+			} else {
+				return response._data;
+			}
+		},
 	});
 
 	return $api;

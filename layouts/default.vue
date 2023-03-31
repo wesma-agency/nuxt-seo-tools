@@ -36,7 +36,7 @@
 							</div>
 						</div>
 						<div id="nav" class="w-full px-6">
-							<NuxtLink to="/parsers" custom v-slot="{ href, navigate, isActive }">
+							<NuxtLink v-if="store.userProfile.active != 0" to="/parsers" custom v-slot="{ href, navigate, isActive }">
 								<a :href="href" @click="navigate" :class="[isActive ? currentMenuClass : allMenuClass]" class="w-full px-2 inline-flex space-x-2 items-center border-b border-slate-700 py-3 transition ease-linear duration-150">
 									<div>
 										<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -50,7 +50,7 @@
 								</a>
 							</NuxtLink>
 
-							<NuxtLink v-if="store.userProfile.role == 'DEVELOPER'" to="/log" custom v-slot="{ href, navigate, isActive }">
+							<NuxtLink v-if="store.userProfile.role == 'DEVELOPER' && store.userProfile.active != 0" to="/log" custom v-slot="{ href, navigate, isActive }">
 								<a :href="href" @click="navigate" :class="[isActive ? currentMenuClass : allMenuClass]" class="w-full px-2 inline-flex space-x-2 items-center border-b border-slate-700 py-3 transition ease-linear duration-150">
 									<div>
 										<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -64,7 +64,7 @@
 								</a>
 							</NuxtLink>
 
-							<NuxtLink v-if="store.userProfile.role == 'DEVELOPER'" to="/" custom v-slot="{ href, navigate, isActive }">
+							<NuxtLink v-if="store.userProfile.role == 'DEVELOPER' && store.userProfile.active != 0" to="/" custom v-slot="{ href, navigate, isActive }">
 								<a :href="href" @click="navigate" :class="[isActive ? currentMenuClass : allMenuClass]" class="w-full px-2 inline-flex space-x-2 items-center border-b border-slate-700 py-3 transition ease-linear duration-150">
 									<div>
 										<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
